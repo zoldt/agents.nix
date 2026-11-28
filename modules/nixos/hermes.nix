@@ -22,17 +22,7 @@
   in {
     imports = [hermes-agent.nixosModules.default hermes-webui.nixosModules.default];
 
-    options.zoldt.agents.hermes.credentials = lib.mkOption {
-      type = lib.types.submodule {
-        options = lib.genAttrs ["deepseek-api-key" "opencode-api-key" "hermes-api-server-key" "hermes-dashboard-password"] (name:
-          lib.mkOption {
-            type = lib.types.str;
-            default = "/run/secrets/${name}";
-            description = "Path to the ${name} credential file.";
-          });
-      };
-      default = {};
-    };
+    options.zoldt.agents.hermes.credentials = import ./_credentials.nix lib ["deepseek-api-key" "opencode-api-key" "hermes-api-server-key" "hermes-dashboard-password"];
 
     config = {
       systemd.services = {

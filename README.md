@@ -7,7 +7,7 @@ Apply the overlays, from this flake and from
 
 ```nix
 nixpkgs.overlays = [
-  inputs.zoldt-pkgs.modules.overlays.default
+  inputs.zoldt-pkgs.overlays.default
   inputs.zoldt-agents.overlays.default
 ];
 ```
@@ -17,4 +17,10 @@ Then import what you want:
 - `modules.homeManager`: `ai` (agent CLIs), `claude`, `pi`, `paseo`, and either `magpie-cli` (headless gateway) or `magpie-desktop`.
 - `modules.nixos`: `hermes`, `honcho`, `magpie`, `paseo`.
 
-The NixOS services read credentials from files. Each one has a `zoldt.agents.<service>.credentials` option (or `webKeyFile` for Magpie) that defaults to `/run/secrets/<name>`.
+The NixOS services read their credentials from files at runtime. Each one takes
+`zoldt.agents.<service>.credentials.<name>`, the path to that file, with no
+default:
+
+```nix
+zoldt.agents.magpie.credentials.magpie-web-key = config.sops.secrets.magpie-web-key.path;
+```

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.desktop-magpie =
+  flake.modules.homeManager.magpie-desktop =
     # Magpie's desktop app: it *is* the gateway (the app runs `magpie serve`'s
     # engine itself). Select this or the headless magpie-cli aspect for a home.
     #

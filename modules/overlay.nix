@@ -1,6 +1,6 @@
 {inputs, ...}: {
-  # Packages from this flake's inputs, as `pkgs.<name>`. The modules here also use
-  # zoldt/packages.nix's overlay (openwiki-cli, magpie-cli, magpie-desktop).
+  # Packages from this flake's inputs, as `pkgs.<name>`. The Home Manager modules
+  # also need zoldt/packages.nix's overlay (openwiki-cli, magpie-cli, magpie-desktop).
   flake.overlays.default = final: _prev: let
     inherit (final.stdenv.hostPlatform) system;
   in {

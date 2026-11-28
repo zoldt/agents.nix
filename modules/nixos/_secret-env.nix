@@ -1,4 +1,5 @@
-# Stage value-only SOPS files for systemd and Quadlet without exposing them to Nix.
+# Turn value-only credential files into an env file for systemd and Quadlet at
+# service start, without the values entering the Nix store.
 {
   lib,
   pkgs,

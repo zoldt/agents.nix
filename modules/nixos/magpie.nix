@@ -7,7 +7,7 @@
   }: let
     cfg = config.zoldt.agents.magpie;
     secretEnv = import ./_secret-env.nix {inherit lib pkgs;};
-    magpie = secretEnv "magpie" {MAGPIE_WEB_KEY = cfg.webKeyFile;};
+    magpie = secretEnv "magpie" {MAGPIE_WEB_KEY = cfg.credentials.magpie-web-key;};
   in {
     imports = [inputs.quadlet-nix.nixosModules.quadlet];
 
@@ -22,11 +22,7 @@
         default = "http://127.0.0.1:3430";
         description = "Base URL clients use to reach the Magpie web service.";
       };
-      webKeyFile = lib.mkOption {
-        type = lib.types.str;
-        default = "/run/secrets/magpie-web-key";
-        description = "Path to the Magpie web credential file.";
-      };
+      credentials = import ./_credentials.nix lib ["magpie-web-key"];
     };
 
     config = {

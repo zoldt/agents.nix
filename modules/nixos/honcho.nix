@@ -103,17 +103,7 @@
   in {
     imports = [inputs.quadlet-nix.nixosModules.quadlet];
 
-    options.zoldt.agents.honcho.credentials = lib.mkOption {
-      type = lib.types.submodule {
-        options = lib.genAttrs ["honcho-db-password" "deepseek-api-key" "openrouter-api-key"] (name:
-          lib.mkOption {
-            type = lib.types.str;
-            default = "/run/secrets/${name}";
-            description = "Path to the ${name} credential file.";
-          });
-      };
-      default = {};
-    };
+    options.zoldt.agents.honcho.credentials = import ./_credentials.nix lib ["honcho-db-password" "deepseek-api-key" "openrouter-api-key"];
 
     config = {
       virtualisation.podman.enable = true;
